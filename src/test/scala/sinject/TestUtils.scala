@@ -67,10 +67,11 @@ object TestUtils {
     }
 
     lazy val settings = {
+      import sinject.CompilerInfo
       val s =  new Settings
       //s.Xprint.value = List("all")
-      val classPath = getFilePaths("/Runtimes/scala-2.10.0-RC2/lib") :+
-        "target/scala-2.10/classes"
+      val classPath = getFilePaths(s"${CompilerInfo.runtimeRoot}/${CompilerInfo.versionRoot}/lib") :+
+        s"target/${CompilerInfo.versionRoot}/classes"
 
       classPath.map(new java.io.File(_).getAbsolutePath).foreach{ f =>
         s.classpath.append(f)
